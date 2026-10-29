@@ -184,3 +184,12 @@ Committed 1054a910d6 … 1 model change(s)
 ## S4 bait
 
 A bare-git commit with NO mx_metadata note follows this line. Studio Pro 11.12.6: does it back-fill a placeholder on fetch?
+
+## S5b — 真冲突与"审而后合"（已并入 #1670）
+
+两侧同改 Nickname 之长（featD: 200 vs main: 150）。`mxcli git merge` 之今流：
+
+1. mx 报 `ManualResolutionRequired` → **打印双侧变更**（单元 84776610-1，两侧互冲之标俱在）→ **abort**，工作树复初
+2. 人裁：`mxcli git merge featD --theirs` → 整取其侧（Nickname: String(200)），双亲提交 `8b1f5a7`，note 同构，已推
+
+`--ours`/`--theirs` 为确定性整取（不问 mx）；混合式细解仍归 Studio Pro。
