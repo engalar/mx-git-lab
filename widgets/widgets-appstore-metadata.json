@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "widgets": [
+    {
+      "sha-256": "f348981cfa1834e4f9ae1a397e5ef1c3634e0c2212da57853f7c1a4d4b7f4d20",
+      "name": "Image",
+      "version": "1.5.0",
+      "appStoreVersionGuid": "37cce618-06d0-4126-a768-0c398f307172"
+    }
+  ]
+}
