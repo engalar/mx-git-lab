@@ -108,3 +108,7 @@ Committed 1054a910d6 … 1 model change(s)
 - 随后重建 `CreatedByMxcli` 实体（53944c4），模型归于齐整。
 
 **判定 S3：漂移自修，与 `fix hashes --repair` 之语义一致，提交未被漂移所阻亦未带病而入。**
+
+## S4 bait
+
+A bare-git commit with NO mx_metadata note follows this line. Studio Pro 11.12.6: does it back-fill a placeholder on fetch?
