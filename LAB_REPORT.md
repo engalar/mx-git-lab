@@ -105,7 +105,42 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 **git 侧判定：裸 git 不能合并 Mendix 模型——此非 mxcli 可补，乃格式之性。**
 
-原生侧（Studio Pro model-aware merge）金样待采：君于 Studio Pro 行 Merge feature branch 之后录之。
+### 原生金样（c141f6f `Merge commit(auto) by sp`）
+
+双亲（`e2adea6`+`bd355da`）真合并提交；note 列 DomainModel Modified 一条，与常例同构。领域模型双侧之变并存。
+
+### mxcli CLI 模型感知合并（60a9e00，经 `mx git-merge`）
+
+`mx.exe` 自带 `git-merge BASE MINE THEIRS BASE_COMMIT MINE_COMMIT THEIRS_COMMIT`（`-v` 尝试自解）。于同局重演（`gitmerge` 支自 480879a）：
+
+```
+$ mx git-merge -v <base>.mpr <mine>.mpr <theirs>.pr 63b65706 480879a3 bd355da4
+[{"UnitId":"84776610-…","Type":"MergeContents","TreeConflict":"None","ConflictResolutionDetails":"AutoResolved"}]
+Merge successful.  (exit 0)
+```
+
+工作树遂含双侧之变（`CreatedByMxcli(FullName,Nickname)` + `MainOnly`）。`git add` 后以 `mxcli git commit` 结之：双亲合并提交 `60a9e00`，note 与原生金样**同构**。
+
+### 真冲突之实测（两侧同改 FullName 之长）
+
+```
+[{"…","TreeConflict":"None","ConflictResolutionDetails":"ManualResolutionRequired"}]
+Conflicts found during merging. Please resolve them by opening the project in Studio Pro.
+exit 2
+```
+
+- mx 之败不损我侧模型（featA 之 300 仍在），唯留 `.mpr` 索引 1 mismatch；
+- 故 `mxcli git merge` 之 UX 定为：exit 2 即 `git merge --abort` + 列冲突单元 + 指向 Studio Pro 解之。
+
+**S5 终判**：
+
+| | git merge | Studio Pro 原生 | mxcli（`mx git-merge` 之助） |
+|---|---|---|---|
+| 可自动合并 | 二进制冲突，**不可** | ✅ 模型感知 | ✅ 同（AutoResolved） |
+| 真冲突 | 二进制冲突 | 冲突 UI 手解 | 报冲突清单，转 Studio Pro |
+| note/提交规范 | — | ✅ | ✅（与原生同构） |
+
+`mxcli git merge` 之实现随后入 mxcli（#1670）。
 
 ## S1+S2 — mxcli 复刻金样 + 杂物剔除（53f08dd）
 
