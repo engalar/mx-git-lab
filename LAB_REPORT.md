@@ -193,3 +193,13 @@ A bare-git commit with NO mx_metadata note follows this line. Studio Pro 11.12.6
 2. 人裁：`mxcli git merge featD --theirs` → 整取其侧（Nickname: String(200)），双亲提交 `8b1f5a7`，note 同构，已推
 
 `--ours`/`--theirs` 为确定性整取（不问 mx）；混合式细解仍归 Studio Pro。
+
+## S5c — 细粒度：属性级报告 + 逐单元计划（da004a68d 之后）
+
+`mx diff` 之 schema 乃属性级（property/baseValue/mineValue）。今流：
+
+1. Manual 冲突 → `mx diff` ×2 → **属性级报告**：`New type > Length: 200 → 180`(ours) / `→ 250`(theirs)
+2. 计划模板 `<mpr>.merge-plan.json` 自动书写（每冲突单元 take: ours 默认）
+3. 人改 take → `--plan` 重跑：逐单元取侧，`.mpr` 取 ours 后哈希自修（Repaired 1），提交 `7d7ff81`
+
+界限：同单元内逐属性混合仍归 Studio Pro；Added/Deleted/Moved 之争计划校验拒之。

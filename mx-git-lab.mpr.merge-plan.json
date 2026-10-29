@@ -1,0 +1,11 @@
+{
+  "base": "42864e41700e712c61020e088cefefa89f164139",
+  "ours": "0e09cf5d74e1f3ccab85381fe2622894ce5fb720",
+  "theirs": "6d7dbe05d4bab6b5d52b665e80ee6212ff636eae",
+  "units": [
+    {
+      "id": "84776610-13b2-48cb-a265-d5e984d63129",
+      "take": "theirs"
+    }
+  ]
+}
