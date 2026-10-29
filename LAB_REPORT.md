@@ -84,6 +84,29 @@ Nothing to fix.   (exit 0)
 
 **附**：lab 之 `.gitignore` 乃 Studio Pro 自生（无 `.mxcli/`）；`mxcli init` 模板固有之——已补入 lab（`ca4f3e7`）。
 
+## S5 — 两支合并（git 侧已完成，原生侧待行）
+
+布局：`feature/s5-attribute`（bd355da：`ALTER ENTITY CreatedByMxcli add Nickname`，note 之 `BranchName:"feature/s5-attribute"` 正确）vs `main`（480879a：新建 `MainOnly` 实体）。两侧皆改**同一** DomainModel 单元（`84776610`）。
+
+### git 原生 merge 之实测
+
+```
+$ git merge feature/s5-attribute
+warning: Cannot merge binary files: mprcontents/84/77/84776610-….mxunit (HEAD vs. feature/s5-attribute)
+CONFLICT (content): Merge conflict in mprcontents/84/77/84776610-….mxunit
+warning: Cannot merge binary files: mx-git-lab.mpr (HEAD vs. feature/s5-attribute)
+CONFLICT (content): Merge conflict in mx-git-lab.mpr
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+- git 将 `.mxunit`（BSON）与 `.mpr`（SQLite）皆视为**二进制**：凡两侧同触一单元，必 `UU` 冲突，无自动合并可言；
+- 此时 `mxcli git commit` **拒**：`refusing to commit: the merge has unresolved conflicts …`（`git ls-files --unmerged` 可列）；
+- 已 `git merge --abort`，`gitmerge` 试验支已除，main 完好（480879a）。
+
+**git 侧判定：裸 git 不能合并 Mendix 模型——此非 mxcli 可补，乃格式之性。**
+
+原生侧（Studio Pro model-aware merge）金样待采：君于 Studio Pro 行 Merge feature branch 之后录之。
+
 ## S1+S2 — mxcli 复刻金样 + 杂物剔除（53f08dd）
 
 操作：`mxcli exec` 建 `MyFirstModule.CreatedByMxcli (FullName: String(200))`（与金样同形单元：DomainModel）；以 `git add -f` 强置 `project-settings.user.json` 入索引；`mxcli git commit -m … -p mx-git-lab.mpr`。
