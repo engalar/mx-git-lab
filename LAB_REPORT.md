@@ -67,8 +67,22 @@ Nothing to fix.   (exit 0)
 | S1 | mxcli 复刻模型变更 + `git commit` | ✅ 完成（note 与金样逐字节全同） |
 | S2 | 杂物文件不被提交 | ✅ 完成（35 件皆剔，提交恰二件） |
 | S3 | 哈希漂移自修 | ✅ 完成 |
-| S4 | 裸提交占位符 → doctor 补齐 | 待办 |
-| S5 | 两支合并：Studio Pro 原生 vs git | 待办 |
+| S4 | 裸提交占位符 → doctor 补齐 | ✅ 完成 |
+| S5 | 两支合并：Studio Pro 原生 vs git | 进行中 |
+
+## S4 — 裸提交与占位符（c749007 → doctor 补齐）
+
+操作：裸 git 提交（`c749007`，无 note，仅改 LAB_REPORT.md）并推送；Studio Pro 11.12.6 开项 fetch 之后观其史。
+
+**实测（11.12.6）**：
+
+- Studio Pro **不写占位符 note**（notes 仍 7 条）——占位符乃 11.13 之行为；
+- 历史面板对无 note 之提交显示 `Changes in model(0)`, `Changes on disk(1)`——11.12.6 径读提交树，不赖 note；
+- `mxcli git doctor -p --fix` 检得 `c7490076eb without a note`，补以计算之 note（`ModelChanges:[]`，`ModelerVersion:"11.12.6"`——与 Studio Pro 自书之空变更 note 同构）。
+
+**判定 S4：11.12.6 无占位符之患；note 缺失由 doctor 一令补齐。**（对 11.13+，占位符会被 `git note`/`doctor` 自动替换，此路径已有测试。）
+
+**附**：lab 之 `.gitignore` 乃 Studio Pro 自生（无 `.mxcli/`）；`mxcli init` 模板固有之——已补入 lab（`ca4f3e7`）。
 
 ## S1+S2 — mxcli 复刻金样 + 杂物剔除（53f08dd）
 
